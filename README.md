@@ -1,20 +1,15 @@
 # React Password Validator
 
-A React component for password validation with TypeScript and Tailwind CSS support. This component provides a customizable password input form with comprehensive validation rules and accessibility features.
+A modern, accessible, and customizable password validation component for React applications. Built with TypeScript and styled with Tailwind CSS.
 
 ## Features
 
-- 🔒 Password confirmation matching
-- 📏 Minimum length validation (6 characters)
-- 🔠 Uppercase character requirement
-- 🔡 Lowercase character requirement
-- 🔢 Number requirement
-- ⭐ Special character requirement
-- 🎨 Customizable styles using Tailwind CSS
-- 🔧 Customizable submit button text
-- 🎯 Customizable error messages
-- ♿ Accessibility features (ARIA labels, roles, keyboard navigation)
-- 📱 Responsive design
+- 🔒 Comprehensive password validation rules
+- 🎨 Modern, responsive UI with Tailwind CSS
+- ♿️ Fully accessible with ARIA attributes
+- 📱 Mobile-friendly design
+- 🎯 Customizable styling and error messages
+- 🔍 Real-time validation feedback
 - 📦 TypeScript support
 - 🧪 Comprehensive test coverage
 
@@ -33,18 +28,21 @@ import { PasswordValidator } from 'react-password-validator';
 
 function App() {
   const handleSubmit = (password: string) => {
-    console.log('Valid password:', password);
-    // Handle the valid password here
+    console.log('Password submitted:', password);
   };
 
   return (
     <PasswordValidator
       onSubmit={handleSubmit}
       submitButtonText="Create Password"
-      className="max-w-md mx-auto p-4"
-      inputClassName="border-gray-300"
-      buttonClassName="bg-indigo-600 hover:bg-indigo-700"
-      errorClassName="text-red-600"
+      errorMessages={{
+        passwordMismatch: "Passwords don't match",
+        minLength: "Password must be at least 6 characters long",
+        uppercase: "Password must contain at least one uppercase letter",
+        lowercase: "Password must contain at least one lowercase letter",
+        number: "Password must contain at least one number",
+        special: "Password must contain at least one special character"
+      }}
     />
   );
 }
@@ -54,98 +52,125 @@ function App() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| onSubmit | (password: string) => void | Required | Callback function called when password is valid |
-| submitButtonText | string | 'Submit' | Text to display on the submit button |
-| className | string | '' | Additional classes for the form container |
-| inputClassName | string | '' | Additional classes for input fields |
-| buttonClassName | string | '' | Additional classes for the submit button |
-| errorClassName | string | '' | Additional classes for error messages |
-| errorMessages | object | See below | Custom error messages for each validation rule |
+| `onSubmit` | `(password: string) => void` | Required | Callback function called when a valid password is submitted |
+| `submitButtonText` | `string` | "Submit" | Text to display on the submit button |
+| `className` | `string` | "" | Additional CSS classes for the form container |
+| `inputClassName` | `string` | "" | Additional CSS classes for input fields |
+| `buttonClassName` | `string` | "" | Additional CSS classes for the submit button |
+| `errorClassName` | `string` | "" | Additional CSS classes for error messages |
+| `errorMessages` | `object` | See below | Custom error messages for validation rules |
 
-### Custom Error Messages
+### Default Error Messages
 
-You can customize all error messages by passing an `errorMessages` object:
-
-```tsx
-<PasswordValidator
-  onSubmit={handleSubmit}
-  errorMessages={{
-    passwordMismatch: 'Your passwords do not match',
-    minLength: 'Password must be at least 6 characters',
-    uppercase: 'Include at least one uppercase letter',
-    lowercase: 'Include at least one lowercase letter',
-    number: 'Include at least one number',
-    special: 'Include at least one special character'
-  }}
-/>
+```typescript
+{
+  passwordMismatch: 'Passwords do not match',
+  minLength: 'Password must be at least 6 characters long',
+  uppercase: 'Password must contain at least one uppercase letter',
+  lowercase: 'Password must contain at least one lowercase letter',
+  number: 'Password must contain at least one number',
+  special: 'Password must contain at least one special character (!@#$%^&*()_-+={[}]|:;"\'<,>.)'
+}
 ```
 
-## Requirements
+## Validation Rules
 
-- React 16.8 or higher
-- TypeScript 4.0 or higher
-- Tailwind CSS 3.0 or higher
+The component enforces the following password requirements:
+- Minimum length of 6 characters
+- At least one uppercase letter
+- At least one lowercase letter
+- At least one number
+- At least one special character
+- Passwords must match
 
 ## Development
 
+This project uses a monorepo structure with the following organization:
+
+```
+react-password-validator/
+├── packages/
+│   └── react-password-validator/  # Main library package
+│       ├── src/
+│       │   ├── components/
+│       │   │   └── PasswordValidator.tsx
+│       │   └── index.ts
+│       ├── jest.config.js
+│       ├── package.json
+│       └── tsconfig.json
+├── example/                      # Example application
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── index.tsx
+│   │   └── index.css
+│   ├── public/
+│   │   └── index.html
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── tailwind.config.js
+│   └── postcss.config.js
+└── package.json
+```
+
+### Setup
+
+1. Clone the repository:
 ```bash
-# Install dependencies
+git clone https://github.com/gatortim/password-library.git
+cd react-password-validator
+```
+
+2. Install dependencies:
+```bash
 npm install
+```
 
-# Run tests
-npm test
-npm run test:watch
-npm run test:coverage
-
-# Build the library
+3. Build the library:
+```bash
 npm run build
 ```
 
-## Testing
+4. Start the example application:
+```bash
+npm start
+```
 
-The component includes comprehensive tests for:
-- All validation rules
-- Custom error messages
-- Custom styling
-- Accessibility features
-- Form submission
-- Error states
+### Available Scripts
 
-## Publishing
+- `npm run build` - Build the library package
+- `npm run test` - Run tests for the library
+- `npm start` - Start the example application
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Generate test coverage report
+
+### Publishing
 
 To publish the package to npm:
 
-1. First, make sure you have an npm account and are logged in:
+1. First, make sure you're logged in to npm:
 ```bash
 npm login
 ```
 
-2. Update the version number in package.json:
+2. Choose the appropriate publish command based on your changes:
 ```bash
-npm version patch  # for small fixes
-npm version minor  # for new features
-npm version major  # for breaking changes
+# For bug fixes (patch version)
+npm run publish:patch
+
+# For new features (minor version)
+npm run publish:minor
+
+# For breaking changes (major version)
+npm run publish:major
+
+# To publish without version changes
+npm run publish
 ```
 
-3. Build the package:
-```bash
-npm run build
-```
-
-4. Publish to npm:
-```bash
-npm publish
-```
-
-If you want to test the package before publishing:
-```bash
-npm pack
-```
-
-This will create a tarball that you can install in another project to test:
-```bash
-npm install ../path/to/react-password-validator-1.0.0.tgz
-```
+The publish commands will:
+1. Build the library
+2. Update the version (for patch/minor/major commands)
+3. Publish the package to npm
 
 ## Contributing
 
@@ -157,10 +182,12 @@ npm install ../path/to/react-password-validator-1.0.0.tgz
 
 ## License
 
-MIT © [Your Name]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-- Built with React and TypeScript
-- Styled with Tailwind CSS
-- Tested with Jest and React Testing Library 
+- React
+- TypeScript
+- Tailwind CSS
+- Jest
+- Testing Library 
