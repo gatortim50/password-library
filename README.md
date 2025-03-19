@@ -111,6 +111,42 @@ The component includes comprehensive tests for:
 - Form submission
 - Error states
 
+## Publishing
+
+To publish the package to npm:
+
+1. First, make sure you have an npm account and are logged in:
+```bash
+npm login
+```
+
+2. Update the version number in package.json:
+```bash
+npm version patch  # for small fixes
+npm version minor  # for new features
+npm version major  # for breaking changes
+```
+
+3. Build the package:
+```bash
+npm run build
+```
+
+4. Publish to npm:
+```bash
+npm publish
+```
+
+If you want to test the package before publishing:
+```bash
+npm pack
+```
+
+This will create a tarball that you can install in another project to test:
+```bash
+npm install ../path/to/react-password-validator-1.0.0.tgz
+```
+
 ## Contributing
 
 1. Fork the repository

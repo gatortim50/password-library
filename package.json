@@ -4,22 +4,38 @@
   "description": "A React password validator component with TypeScript and Tailwind CSS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
     "react",
     "password",
     "validator",
     "typescript",
-    "tailwind"
+    "tailwind",
+    "form",
+    "validation",
+    "accessibility"
   ],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gatortim50/password-library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gatortim50/password-library/issues"
+  },
+  "homepage": "https://github.com/gatortim50/password-libr#readme",
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
